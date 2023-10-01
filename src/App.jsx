@@ -1,9 +1,10 @@
 import React from "react";
+import Register from "./pages/Register";
 
 const App = () => {
   return (
     <div>
-      <div className="text-3xl font-bold underline">REAL TIME CHAT APP </div>
+      <Register />
     </div>
   );
 };
