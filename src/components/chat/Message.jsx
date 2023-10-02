@@ -11,8 +11,8 @@ const Message = () => {
         />
         <span className="text-xs text-slate-500">Just now</span>
       </div>
-      <div>
-        <p>Hey Dy!</p>
+      <div className="max-w-[80%] flex flex-col gap-2">
+        <p className="bg-white p-2">Hey Dy!</p>
       </div>
     </div>
   );
