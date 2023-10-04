@@ -2,6 +2,13 @@ import React from "react";
 import addAvatar from "../assets/addAvatar.png";
 
 const Register = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const username = e.target[0].value;
+    const email = e.target[1].value;
+    const password = e.target[2].value;
+    const file = e.target[3].files[0];
+  };
   return (
     <div className="bg-blue-200 min-h-screen flex justify-center items-center">
       <div className=" bg-white px-8 pt-10 pb-6 w-[360px]">
@@ -9,7 +16,7 @@ const Register = () => {
           Register
         </p>
         <div>
-          <form className="flex flex-col gap-3">
+          <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Username"

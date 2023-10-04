@@ -18,7 +18,7 @@ const Message = () => {
       >
         <p
           className={`bg-white p-2 max-w-max ${
-            owner ? "rounded-tl-xl bg-blue-300 text-white" : "rounded-tr-xl"
+            owner ? "rounded-tl-xl " : "rounded-tr-xl"
           }  rounded-br-xl rounded-bl-xl`}
         >
           Hey Dy!
