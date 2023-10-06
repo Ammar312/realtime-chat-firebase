@@ -9,8 +9,12 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
+import {
+  doc,
+  setDoc,
+} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
-import { auth, storage } from "../firebase";
+import { auth, storage, db } from "../firebase";
 
 const Register = () => {
   const handleSubmit = async (e) => {
@@ -63,6 +67,12 @@ const Register = () => {
             console.log("File available at", downloadURL);
             await updateProfile(response.user, {
               displayName: username,
+              photoURL: downloadURL,
+            });
+            await setDoc(doc(db, "user", response.user.uid), {
+              uid: response.user.uid,
+              displayName: username,
+              email,
               photoURL: downloadURL,
             });
           });
