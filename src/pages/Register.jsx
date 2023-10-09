@@ -15,8 +15,10 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
 import { auth, storage, db } from "../firebase";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     const username = e.target[0].value;
@@ -75,6 +77,8 @@ const Register = () => {
               email,
               photoURL: downloadURL,
             });
+            await setDoc(doc(db, "userChats", response.user.uid), {});
+            navigate("/");
           });
         }
       );
