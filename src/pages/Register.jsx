@@ -15,7 +15,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
 import { auth, storage, db } from "../firebase";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -123,7 +123,7 @@ const Register = () => {
           </form>
         </div>
         <div className=" text-center my-4 text-blue-900">
-          Already Have Account? Login
+          Already Have Account? <Link to="/login">Login</Link>
         </div>
       </div>
     </div>
