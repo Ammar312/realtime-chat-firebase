@@ -1,10 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import {
+  collection,
+  query,
+  where,
+} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import { db } from "../../firebase";
 
 const SearchBar = () => {
+  const [user, setUser] = useState(null);
+  const [searchUser, setSearchUser] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const dbRef = collection(db, "users");
+    const q = query(dbRef, where("displayName", "==", searchUser));
+  };
+
   return (
     <div>
       <div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             placeholder="Find a buddy"
