@@ -4,6 +4,7 @@ import {
   query,
   where,
   getDocs,
+  getDoc,
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
@@ -29,7 +30,15 @@ const SearchBar = () => {
       console.log(error);
     }
   };
-  const handleSelect = () => {};
+  const handleSelect = async () => {
+    const combinedId =
+      currentUser.uid > user.uid
+        ? currentUser.uid + user.uid
+        : user.uid + currentUser.uid;
+    try {
+      const response = await getDoc(doc(db, "chats", combinedId));
+    } catch (error) {}
+  };
 
   return (
     <div className="border border-b-white">
