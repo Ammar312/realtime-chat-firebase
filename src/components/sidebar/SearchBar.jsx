@@ -15,7 +15,8 @@ const SearchBar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const dbRef = collection(db, "users");
+
+    const dbRef = collection(db, "user");
     const q = query(dbRef, where("displayName", "==", searchUser));
     try {
       const querySnapshot = await getDocs(q);
@@ -28,9 +29,10 @@ const SearchBar = () => {
       console.log(error);
     }
   };
+  const handleSelect = () => {};
 
   return (
-    <div>
+    <div className="border border-b-white">
       <div>
         <form onSubmit={handleSubmit}>
           <input
@@ -43,7 +45,10 @@ const SearchBar = () => {
         </form>
       </div>
       {user && (
-        <div className=" flex items-center cursor-pointer p-2 gap-3 text-white hover:bg-purple-950">
+        <div
+          className=" flex items-center cursor-pointer p-2 gap-3 text-white hover:bg-purple-950"
+          onClick={handleSelect}
+        >
           <img
             src={user.photoURL}
             alt=""
