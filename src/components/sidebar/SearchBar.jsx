@@ -5,6 +5,8 @@ import {
   where,
   getDocs,
   getDoc,
+  setDoc,
+  updateDoc,
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
@@ -37,6 +39,11 @@ const SearchBar = () => {
         : user.uid + currentUser.uid;
     try {
       const response = await getDoc(doc(db, "chats", combinedId));
+      if (!response.exists()) {
+        //create a chat in chats collection
+        await setDoc(doc(db, "chats", combinedId), { messages: [] });
+        //create user chats
+      }
     } catch (error) {}
   };
 
