@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   collection,
   query,
@@ -8,6 +8,7 @@ import {
   setDoc,
   updateDoc,
   serverTimestamp,
+  doc,
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 import { db } from "../../firebase";
 import { AuthContext } from "../../context/AuthContext";
@@ -38,6 +39,7 @@ const SearchBar = () => {
       currentUser.uid > user.uid
         ? currentUser.uid + user.uid
         : user.uid + currentUser.uid;
+
     try {
       const response = await getDoc(doc(db, "chats", combinedId));
       if (!response.exists()) {
@@ -62,9 +64,10 @@ const SearchBar = () => {
           [combinedId + ".date"]: serverTimestamp(),
         });
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   return (
     <div className="border border-b-white">
       <div>
@@ -81,7 +84,7 @@ const SearchBar = () => {
       {user && (
         <div
           className=" flex items-center cursor-pointer p-2 gap-3 text-white hover:bg-purple-950"
-          onClick={handleSelect}
+          onClick={() => handleSelect()}
         >
           <img
             src={user.photoURL}
