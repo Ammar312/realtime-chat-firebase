@@ -64,6 +64,8 @@ const SearchBar = () => {
           [combinedId + ".date"]: serverTimestamp(),
         });
       }
+      setUser(null);
+      setSearchUser("");
     } catch (error) {
       console.log(error);
     }
