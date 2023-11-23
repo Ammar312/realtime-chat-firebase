@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 
-const Message = () => {
+const Message = (messag) => {
   const [owner, setOwner] = useState(true);
+  const { currentUser } = useContext(AuthContext);
+  const { data } = useContext(ChatContext);
 
   return (
     <div className={owner ? "flex flex-row-reverse mb-4 gap-2" : "flex mb-4"}>
