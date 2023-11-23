@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
 
 const Message = () => {
   const [owner, setOwner] = useState(true);

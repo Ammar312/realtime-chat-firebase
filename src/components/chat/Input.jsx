@@ -1,6 +1,8 @@
 import React from "react";
 import attach from "../../assets/attach.png";
 import img from "../../assets/img.png";
+import { AuthContext } from "../../context/AuthContext";
+import { ChatContext } from "../../context/ChatContext";
 
 const Input = () => {
   return (

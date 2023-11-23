@@ -25,9 +25,9 @@ const Messages = () => {
         owner && "items-end"
       }`}
     >
-      {messages?.map((messag) => {
-        <Message messag={messag} />;
-      })}
+      {messages?.map((messag) => (
+        <Message messag={messag} key={messag.id} />
+      ))}
     </div>
   );
 };
