@@ -1,12 +1,76 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import {
+  doc,
+  onSnapshot,
+  arrayUnion,
+  updateDoc,
+  Timestamp,
+  serverTimestamp,
+} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
+import { v4 as uuid } from "uuid";
+import { db } from "../../firebase";
 import attach from "../../assets/attach.png";
-import img from "../../assets/img.png";
+import imge from "../../assets/img.png";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 
 const Input = () => {
   const { currentUser } = useContext(AuthContext);
-  const { dispatch } = useContext(ChatContext);
+  const { data } = useContext(ChatContext);
+  const [text, setText] = useState("");
+  const [img, setImg] = useState(null);
+  const handleSubmit = async () => {
+    if (img) {
+      const storageRef = ref(storage, uuid());
+
+      const uploadTask = uploadBytesResumable(storageRef, img);
+      uploadTask.on(
+        (error) => {
+          // Handle unsuccessful uploads
+        },
+        () => {
+          // Handle successful uploads on complete
+          // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            console.log("File available at", downloadURL);
+            await updateDoc(doc(db, "chats", data.chatId), {
+              messages: arrayUnion({
+                id: uuid(),
+                text,
+                senderId: currentUser.uid,
+                date: Timestamp.now(),
+                img: downloadURL,
+              }),
+            });
+          });
+        }
+      );
+    } else {
+      await updateDoc(doc(db, "chats", data.chatId), {
+        messages: arrayUnion({
+          id: uuid(),
+          text,
+          senderId: currentUser.uid,
+          date: Timestamp.now(),
+        }),
+      });
+    }
+    await updateDoc(doc(db, "userChats", currentUser.uid), {
+      [data.chatId + ".lastMessage"]: { text },
+      [data.chatId + ".date"]: serverTimestamp(),
+    });
+    await updateDoc(doc(db, "userChats", data.user.uid), {
+      [data.chatId + ".lastMessage"]: { text },
+      [data.chatId + ".date"]: serverTimestamp(),
+    });
+    setText("");
+    setImg(null);
+  };
 
   return (
     <div className="overflow-hidden">
@@ -15,11 +79,22 @@ const Input = () => {
           type="text"
           className="w-full outline-none"
           placeholder="Type a message..."
+          onChange={(e) => setText(e.target.value)}
+          value={text}
         />
         <div className="flex items-center gap-2">
-          <img src={attach} alt="" className="w-6 cursor-pointer" />
-          <img src={img} alt="" className="w-6 cursor-pointer" />
+          <input
+            type="file"
+            id="file"
+            className="hidden"
+            onChange={(e) => setImg(e.target.files[0])}
+          />
+          {/* <img src={attach} alt="" className="w-6 cursor-pointer " /> */}
+          <label htmlFor="file">
+            <img src={imge} alt="" className="w-6 cursor-pointer" />
+          </label>
         </div>
+        <button onClick={handleSubmit}>Send</button>
       </div>
     </div>
   );

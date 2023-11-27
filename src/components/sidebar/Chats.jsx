@@ -29,31 +29,33 @@ const Chats = () => {
   };
   return (
     <div>
-      {Object.entries(chats)?.map((chat) => {
-        return (
-          <div
-            className=" flex items-center cursor-pointer p-2 gap-3 text-white hover:bg-purple-950"
-            key={chat[0]}
-            onClick={() => {
-              handleSelect(chat[1].userInfo);
-            }}
-          >
-            <img
-              src={chat[1].userInfo.photoURL}
-              alt=""
-              className=" w-12 h-12 rounded-full object-cover"
-            />
-            <div>
-              <span className=" font-semibold text-[1.1rem]">
-                {chat[1].userInfo.displayName}
-              </span>
-              <p className="text-slate-300 text-sm">
-                {chat[1].userInfo?.lastMessage?.text}
-              </p>
+      {Object.entries(chats)
+        ?.sort((a, b) => b[1].date - a[1].date)
+        .map((chat) => {
+          return (
+            <div
+              className=" flex items-center cursor-pointer p-2 gap-3 text-white hover:bg-purple-950"
+              key={chat[0]}
+              onClick={() => {
+                handleSelect(chat[1].userInfo);
+              }}
+            >
+              <img
+                src={chat[1].userInfo.photoURL}
+                alt=""
+                className=" w-12 h-12 rounded-full object-cover"
+              />
+              <div>
+                <span className=" font-semibold text-[1.1rem]">
+                  {chat[1].userInfo.displayName}
+                </span>
+                <p className="text-slate-300 text-sm">
+                  {chat[1].lastMessage?.text}
+                </p>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 };
