@@ -13,7 +13,7 @@ import {
   getDownloadURL,
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-storage.js";
 import { v4 as uuid } from "uuid";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import attach from "../../assets/attach.png";
 import imge from "../../assets/img.png";
 import { AuthContext } from "../../context/AuthContext";
