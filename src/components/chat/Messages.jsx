@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Message from "./Message";
 import { ChatContext } from "../../context/ChatContext";
+import { AuthContext } from "../../context/AuthContext";
 import { db } from "../../firebase";
 import {
   doc,
@@ -8,7 +9,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-firestore.js";
 
 const Messages = () => {
-  const [owner, setOwner] = useState(true);
+  // const [owner, setOwner] = useState(true);
+  const { currentUser } = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const { data } = useContext(ChatContext);
   useEffect(() => {
@@ -22,11 +24,14 @@ const Messages = () => {
   return (
     <div
       className={`bg-purple-100 h-[385px] overflow-y-auto p-2 flex flex-col ${
-        owner && "items-end"
+        messages?.length > 0 &&
+        messages[messages.length - 1].senderId === currentUser.uid
+          ? "items-end"
+          : ""
       }`}
     >
-      {messages?.map((messag) => (
-        <Message messag={messag} key={messag.id} />
+      {messages?.map((message) => (
+        <Message message={message} key={message.id} />
       ))}
     </div>
   );
