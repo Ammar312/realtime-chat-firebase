@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import addAvatar from "../assets/addAvatar.png";
 import {
   createUserWithEmailAndPassword,
@@ -19,6 +19,8 @@ import { Navigate, useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [selectedImg, setSelectedImg] = useState("");
+  const fileRef = useRef(null);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const username = e.target[0].value;
@@ -95,6 +97,12 @@ const Register = () => {
           Register
         </p>
         <div>
+          <img
+            src={selectedImg}
+            className="w-16 h-16 rounded-full border-2 border-black object-cover"
+            alt=""
+          />
+
           <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -114,7 +122,17 @@ const Register = () => {
               <img src={addAvatar} alt="addavatar" className="w-10" />
               <span className=" text-blue-800">Add Your Image</span>
             </label>
-            <input type="file" name="" id="file" className="hidden" />
+            <input
+              type="file"
+              name=""
+              id="file"
+              className="hidden"
+              accept="image/*"
+              onChange={(e) => {
+                const base64Url = URL.createObjectURL(e.target.files[0]);
+                setSelectedImg(base64Url);
+              }}
+            />
             <button
               type="submit"
               className=" bg-blue-400 text-white p-2 text-lg hover:rounded-md transition-all mt-5"

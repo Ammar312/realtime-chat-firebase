@@ -25,7 +25,6 @@ const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
-  const fileInputRef = useRef(null);
   const handleSubmit = async () => {
     if (img) {
       const storageRef = ref(storage, uuid());
@@ -78,6 +77,15 @@ const Input = () => {
 
   return (
     <div className="overflow-hidden">
+      <div className="">
+        {selectedImage && (
+          <img
+            className="w-16 h-16  object-cover"
+            src={selectedImage}
+            alt="selected image"
+          />
+        )}
+      </div>
       <div className=" bg-white p-4 flex justify-between">
         <textarea
           type="text"
@@ -86,18 +94,11 @@ const Input = () => {
           onChange={(e) => setText(e.target.value)}
           value={text}
           rows="1"
-        >
-          <div className="">
-            {selectedImage && (
-              <img height={100} src={selectedImage} alt="selected image" />
-            )}
-          </div>
-        </textarea>
+        ></textarea>
         <div className="flex items-center gap-2">
           <input
             type="file"
             id="file"
-            ref={fileInputRef}
             className="hidden"
             accept="image/*"
             onChange={(e) => {
