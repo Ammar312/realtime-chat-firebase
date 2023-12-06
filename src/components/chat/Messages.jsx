@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Message from "./Message";
 import { ChatContext } from "../../context/ChatContext";
 import { AuthContext } from "../../context/AuthContext";
+import { BaseUrlContext } from "../../context/BaseUrlContext";
 import { db } from "../../firebase";
 import {
   doc,
@@ -11,8 +12,9 @@ import {
 const Messages = () => {
   // const [owner, setOwner] = useState(true);
   const { currentUser } = useContext(AuthContext);
-  const [messages, setMessages] = useState([]);
   const { data } = useContext(ChatContext);
+  const { selectedImage } = useContext(BaseUrlContext);
+  const [messages, setMessages] = useState([]);
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
       doc.exists() && setMessages(doc.data().messages);
@@ -33,6 +35,15 @@ const Messages = () => {
       {messages?.map((message) => (
         <Message message={message} key={message.id} />
       ))}
+      <div className="">
+        {selectedImage && (
+          <img
+            className="w-16 h-16  object-cover"
+            src={selectedImage}
+            alt="selected image"
+          />
+        )}
+      </div>
     </div>
   );
 };

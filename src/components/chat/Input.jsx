@@ -18,13 +18,15 @@ import attach from "../../assets/attach.png";
 import imge from "../../assets/img.png";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
+import { BaseUrlContext } from "../../context/BaseUrlContext";
 
 const Input = () => {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
+  const { setSelectedImage } = useContext(BaseUrlContext);
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
-  const [selectedImage, setSelectedImage] = useState("");
+  // const [selectedImage, setSelectedImage] = useState("");|
   const handleSubmit = async () => {
     if (img) {
       const storageRef = ref(storage, uuid());
@@ -33,6 +35,7 @@ const Input = () => {
       uploadTask.on(
         (error) => {
           // Handle unsuccessful uploads
+          console.log(error);
         },
         () => {
           // Handle successful uploads on complete
@@ -77,15 +80,6 @@ const Input = () => {
 
   return (
     <div className="overflow-hidden">
-      <div className="">
-        {selectedImage && (
-          <img
-            className="w-16 h-16  object-cover"
-            src={selectedImage}
-            alt="selected image"
-          />
-        )}
-      </div>
       <div className=" bg-white p-4 flex justify-between">
         <textarea
           type="text"
