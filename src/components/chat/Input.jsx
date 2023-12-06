@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import {
   doc,
   onSnapshot,
@@ -24,6 +24,8 @@ const Input = () => {
   const { data } = useContext(ChatContext);
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
+  const [selectedImage, setSelectedImage] = useState("");
+  const fileInputRef = useRef(null);
   const handleSubmit = async () => {
     if (img) {
       const storageRef = ref(storage, uuid());
@@ -86,8 +88,14 @@ const Input = () => {
           <input
             type="file"
             id="file"
+            ref={fileInputRef}
             className="hidden"
-            onChange={(e) => setImg(e.target.files[0])}
+            accept="image/*"
+            onChange={(e) => {
+              setImg(e.target.files[0]);
+              const base64Url = URL.createObjectURL(e.target.files[0]);
+              setSelectedImage(base64Url);
+            }}
           />
           {/* <img src={attach} alt="" className="w-6 cursor-pointer " /> */}
           <label htmlFor="file">
