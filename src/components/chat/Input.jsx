@@ -72,18 +72,27 @@ const Input = () => {
     });
     setText("");
     setImg(null);
+    console.log("img: ", img);
+    console.log("selectedImage: ", selectedImage);
   };
 
   return (
     <div className="overflow-hidden">
       <div className=" bg-white p-4 flex justify-between">
-        <input
+        <textarea
           type="text"
-          className="w-full outline-none"
+          className="w-full outline-none resize-none"
           placeholder="Type a message..."
           onChange={(e) => setText(e.target.value)}
           value={text}
-        />
+          rows="1"
+        >
+          <div className="">
+            {selectedImage && (
+              <img height={100} src={selectedImage} alt="selected image" />
+            )}
+          </div>
+        </textarea>
         <div className="flex items-center gap-2">
           <input
             type="file"

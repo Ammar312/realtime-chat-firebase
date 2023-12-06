@@ -46,7 +46,7 @@ const Message = ({ message }) => {
         >
           {message.text}
         </p>
-        {message.img && <img src={message.img} alt="" className="w-[50%]" />}
+        {message.img && <img src={message.img} alt="" className="w-[20%]" />}
       </div>
     </div>
   );
