@@ -75,7 +75,7 @@ const Input = () => {
     setText("");
     setImg(null);
     console.log("img: ", img);
-    console.log("selectedImage: ", selectedImage);
+    setSelectedImage("");
   };
 
   return (

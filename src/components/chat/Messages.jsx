@@ -13,7 +13,7 @@ const Messages = () => {
   // const [owner, setOwner] = useState(true);
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
-  const { selectedImage } = useContext(BaseUrlContext);
+  const { selectedImage, setSelectedImage } = useContext(BaseUrlContext);
   const [messages, setMessages] = useState([]);
   useEffect(() => {
     const unsub = onSnapshot(doc(db, "chats", data.chatId), (doc) => {
@@ -35,13 +35,21 @@ const Messages = () => {
       {messages?.map((message) => (
         <Message message={message} key={message.id} />
       ))}
-      <div className="">
+      <div className="absolute bottom-28  w-[480px]  backdrop-blur-md">
         {selectedImage && (
-          <img
-            className="w-16 h-16  object-cover"
-            src={selectedImage}
-            alt="selected image"
-          />
+          <>
+            <img
+              className="w-16 h-16  object-cover"
+              src={selectedImage}
+              alt="selected image"
+            />
+            <button
+              onClick={() => setSelectedImage("")}
+              className="absolute top-3 right-4"
+            >
+              Cancel
+            </button>
+          </>
         )}
       </div>
     </div>
