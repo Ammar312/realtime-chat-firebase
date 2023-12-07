@@ -47,7 +47,7 @@ const Messages = () => {
               onClick={() => setSelectedImage("")}
               className="absolute top-3 right-4"
             >
-              Cancel
+              <i className="bi bi-x-circle"></i>
             </button>
           </>
         )}
