@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
+import moment from "moment";
 
 const Message = ({ message }) => {
   // const [owner, setOwner] = useState(true);
@@ -10,6 +11,7 @@ const Message = ({ message }) => {
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
+  var today = new Date();
 
   return (
     <div
@@ -30,7 +32,9 @@ const Message = ({ message }) => {
           alt=""
           className="w-10 h-10 rounded-full object-cover"
         />
-        <span className="text-xs text-slate-500">Just now</span>
+        <span className="text-xs text-slate-500">
+          {moment().endOf(`${today.getHours()}`).fromNow()}
+        </span>
       </div>
       <div
         className={`max-w-[80%] flex flex-col gap-2 ${
@@ -44,7 +48,7 @@ const Message = ({ message }) => {
               : "rounded-tr-xl"
           }  rounded-br-xl rounded-bl-xl`}
         >
-          {message.text}
+          {message && message.text}
         </p>
         {message.img && <img src={message.img} alt="" className="w-[40%]" />}
       </div>
