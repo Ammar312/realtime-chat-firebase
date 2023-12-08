@@ -13,7 +13,7 @@ const Navbar = () => {
           alt=""
           className="w-10 h-10 rounded-full object-cover"
         />
-        <span>{currentUser.displayName}</span>
+        <span className="text-white">{currentUser.displayName}</span>
       </div>
       <div
         className="p-1 border border-white bg-slate-400 text-xs cursor-pointer"

@@ -11,7 +11,8 @@ const Message = ({ message }) => {
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
-  var today = new Date();
+  var today = moment().format("YYYYMMDDhmmss");
+  console.log(today);
 
   return (
     <div
@@ -33,7 +34,8 @@ const Message = ({ message }) => {
           className="w-10 h-10 rounded-full object-cover"
         />
         <span className="text-xs text-slate-500">
-          {moment().endOf(`${today.getHours()}`).fromNow()}
+          {moment(`${message.time}`, "YYYYMMDDhmmss").fromNow()}
+          {/* {moment(`${message.date}`, "YYYYMMDD").fromNow()} */}
         </span>
       </div>
       <div

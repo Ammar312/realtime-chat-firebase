@@ -19,6 +19,7 @@ import imge from "../../assets/img.png";
 import { AuthContext } from "../../context/AuthContext";
 import { ChatContext } from "../../context/ChatContext";
 import { BaseUrlContext } from "../../context/BaseUrlContext";
+import moment from "moment";
 
 const Input = () => {
   const { currentUser } = useContext(AuthContext);
@@ -48,6 +49,7 @@ const Input = () => {
                 text,
                 senderId: currentUser.uid,
                 date: Timestamp.now(),
+                time: moment().format("YYYYMMDDhmmss"),
                 img: downloadURL,
               }),
             });
@@ -61,6 +63,7 @@ const Input = () => {
           text,
           senderId: currentUser.uid,
           date: Timestamp.now(),
+          time: moment().format("YYYYMMDDhmmss"),
         }),
       });
     }
