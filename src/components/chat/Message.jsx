@@ -41,15 +41,17 @@ const Message = ({ message }) => {
           message.senderId === currentUser.uid && "items-end"
         }`}
       >
-        <p
-          className={`bg-white p-2 max-w-max ${
-            message.senderId === currentUser.uid
-              ? "rounded-tl-xl "
-              : "rounded-tr-xl"
-          }  rounded-br-xl rounded-bl-xl`}
-        >
-          {message && message.text}
-        </p>
+        {message.text && (
+          <p
+            className={`bg-white p-2 max-w-max ${
+              message.senderId === currentUser.uid
+                ? "rounded-tl-xl "
+                : "rounded-tr-xl"
+            }  rounded-br-xl rounded-bl-xl`}
+          >
+            {message.text}
+          </p>
+        )}
         {message.img && <img src={message.img} alt="" className="w-[40%]" />}
       </div>
     </div>
