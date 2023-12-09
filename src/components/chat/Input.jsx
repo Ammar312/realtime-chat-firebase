@@ -77,7 +77,6 @@ const Input = () => {
     });
     setText("");
     setImg(null);
-    console.log("img: ", img);
     setSelectedImage("");
   };
 

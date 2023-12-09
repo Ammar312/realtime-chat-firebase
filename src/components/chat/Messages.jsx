@@ -28,7 +28,7 @@ const Messages = () => {
       className={`bg-purple-100 h-[385px] overflow-y-auto p-2 flex flex-col ${
         messages?.length > 0 &&
         messages[messages.length - 1].senderId === currentUser.uid
-          ? "items-end"
+          ? ""
           : ""
       }`}
     >
