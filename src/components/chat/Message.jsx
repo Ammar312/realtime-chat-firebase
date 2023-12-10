@@ -34,7 +34,10 @@ const Message = ({ message }) => {
           className="w-10 h-10 rounded-full object-cover"
         />
         <span className="text-xs text-slate-500">
-          {moment(message.time, "YYYYMMDDhmmssa").fromNow()}
+          {moment(message.time, "YYYYMMDDhmmssa").fromNow() ===
+          "a few seconds ago"
+            ? "Just Now"
+            : moment(message.time, "YYYYMMDDhmmssa").fromNow()}
           {/* {moment(`${message.time}`, "YYYYMMDDhmmssa' ").fromNow()} */}
         </span>
       </div>

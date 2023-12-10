@@ -79,6 +79,9 @@ const Input = () => {
     setImg(null);
     setSelectedImage("");
   };
+  const handleKey = (e) => {
+    e.code === "Enter" && handleSubmit();
+  };
 
   return (
     <div className="overflow-hidden">
@@ -87,6 +90,7 @@ const Input = () => {
           type="text"
           className="w-full outline-none resize-none"
           placeholder="Type a message..."
+          onKeyDown={handleKey}
           onChange={(e) => setText(e.target.value)}
           value={text}
           rows="1"
