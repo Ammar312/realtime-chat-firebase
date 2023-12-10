@@ -82,6 +82,9 @@ const Input = () => {
   const handleKey = (e) => {
     e.code === "Enter" && handleSubmit();
   };
+  const addEmoji = (e) => {
+    console.log(e);
+  };
 
   return (
     <div className="overflow-hidden">
@@ -112,7 +115,9 @@ const Input = () => {
             <img src={imge} alt="" className="w-6 cursor-pointer" />
           </label>
         </div>
-        <button onClick={handleSubmit}>Send</button>
+        <button className="ml-3" onClick={handleSubmit}>
+          <i className="bi bi-send-fill text-2xl text-blue-400"></i>
+        </button>
       </div>
     </div>
   );
