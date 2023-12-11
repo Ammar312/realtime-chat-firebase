@@ -71,12 +71,12 @@ const SearchBar = () => {
     }
   };
   return (
-    <div className="border border-b-white">
+    <div className=" border-b-white">
       <div>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder="Find a buddy"
+            placeholder="Find a buddy &#xF52A;"
             className="p-2 w-full bg-transparent border-b border-b-transparent focus:border-b-white text-white outline-none "
             onChange={(e) => setSearchUser(e.target.value)}
             value={searchUser}

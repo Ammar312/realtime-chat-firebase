@@ -16,9 +16,6 @@ const App = () => {
   };
   return (
     <>
-      <header className="bg-black w-full text-4xl p-2 text-white">
-        My Chat App
-      </header>
       <BrowserRouter>
         <Routes>
           <Route path="/">

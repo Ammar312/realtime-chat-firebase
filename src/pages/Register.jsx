@@ -97,22 +97,34 @@ const Register = () => {
           Register
         </p>
         <div>
-          <img
-            src={selectedImg}
-            className="w-16 h-16 rounded-full border-2 border-black object-cover"
-            alt=""
-          />
-
+          <div className=" flex justify-center items-center mb-2">
+            {selectedImg ? (
+              <img
+                src={selectedImg}
+                className="w-16 h-16 rounded-full border border-black object-cover"
+                alt=""
+              />
+            ) : (
+              <i className="bi bi-person-circle text-6xl text-blue-400"></i>
+            )}
+          </div>
           <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Username"
               className="p-2 border-2 "
+              required
             />
-            <input type="email" placeholder="email" className="p-2 border-2 " />
+            <input
+              type="email"
+              required
+              placeholder="email"
+              className="p-2 border-2 "
+            />
             <input
               type="password"
               placeholder="password"
+              required
               className="p-2 border-2 "
             />
             <label
@@ -127,6 +139,7 @@ const Register = () => {
               name=""
               id="file"
               className="hidden"
+              required
               accept="image/*"
               onChange={(e) => {
                 const base64Url = URL.createObjectURL(e.target.files[0]);

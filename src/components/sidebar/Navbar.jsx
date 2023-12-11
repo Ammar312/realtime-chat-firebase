@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 const Navbar = () => {
   const { currentUser } = useContext(AuthContext);
   return (
-    <div className=" bg-blue-800 flex items-center justify-between gap-2 p-3">
+    <div className=" bg-blue-950 flex items-center justify-between gap-2 p-3">
       <div className=" flex items-center gap-2">
         <img
           src={currentUser.photoURL}
@@ -16,10 +16,11 @@ const Navbar = () => {
         <span className="text-white">{currentUser.displayName}</span>
       </div>
       <div
-        className="p-1 border border-white bg-slate-400 text-xs cursor-pointer"
+        className="p-1  text-white text-base cursor-pointer hover:text-red-500 transition-all"
         onClick={() => signOut(auth)}
       >
         Logout
+        <i className="bi bi-box-arrow-right mx-1 text-sm"></i>
       </div>
     </div>
   );
